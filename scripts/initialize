@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -ue
+
+# Rustのセットアップ
+curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path -c rust-src
+
+cat <<EOF > $HOME/.cargo/config.toml
+[build]
+rustflags = ["-Ctarget-cpu=native"]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+EOF
+
+# キャッシュの設定
+$HOME/.cargo/bin/cargo install sccache
+export RUSTC_WRAPPER="$HOME/.cargo/bin/sccache"
+
+# Rust製ツールのインストール
+$HOME/.cargo/bin/cargo install cargo-edit cargo-watch lsd bat ripgrep fd-find git-delta
+
+# Rust Analyzerのインストール
+rust_analyzer_dir="$(mktemp -d)"
+git clone --depth=1 https://github.com/rust-analyzer/rust-analyzer.git $rust_analyzer_dir
+cd $rust_analyzer_dir
+$HOME/.cargo/bin/cargo xtask install --server
+cd -
+rm -rf $rust_analyzer_dir
