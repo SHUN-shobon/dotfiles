@@ -1,13 +1,20 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -ue
 
+SCRIPT_DIR="$(cd $(dirname $0); pwd)"
+source "$SCRIPT_DIR/utils.sh"
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Rustのセットアップ
-curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path -c rust-src
+if ! has rustup; then
+  curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path -c rust-src
+fi
 
 cat <<EOF > $HOME/.cargo/config.toml
 [build]
-rustflags = ["-Ctarget-cpu=native"]
+rustflags = ["-C", "target-cpu=native"]
 
 [profile.release]
 lto = "thin"
@@ -15,16 +22,26 @@ codegen-units = 1
 EOF
 
 # キャッシュの設定
-$HOME/.cargo/bin/cargo install sccache
-export RUSTC_WRAPPER="$HOME/.cargo/bin/sccache"
+if ! has sccache; then
+  cargo install sccache
+fi
+export RUSTC_WRAPPER="$(which sccache)"
 
 # Rust製ツールのインストール
-$HOME/.cargo/bin/cargo install cargo-edit cargo-watch lsd bat ripgrep fd-find git-delta
+has cargo-add || cargo install cargo-edit
+has cargo-watch || cargo install cargo-watch
+has lsd || cargo install lsd
+has bat || cargo install bat
+has rg || cargo install ripgrep
+has fd || cargo install fd-find
+has delta || cargo install git-delta
 
 # Rust Analyzerのインストール
-rust_analyzer_dir="$(mktemp -d)"
-git clone --depth=1 https://github.com/rust-analyzer/rust-analyzer.git $rust_analyzer_dir
-cd $rust_analyzer_dir
-$HOME/.cargo/bin/cargo xtask install --server
-cd -
-rm -rf $rust_analyzer_dir
+if ! has rust-analyzer; then
+  rust_analyzer_dir="$(mktemp -d)"
+  git clone --depth=1 https://github.com/rust-analyzer/rust-analyzer.git $rust_analyzer_dir
+  cd $rust_analyzer_dir
+  $HOME/.cargo/bin/cargo xtask install --server
+  cd $SCRIPT_DIR
+  rm -rf $rust_analyzer_dir
+fi
