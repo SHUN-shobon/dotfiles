@@ -39,6 +39,11 @@ setopt APPEND_CREATE                   # '>>'でのリダイレクト時にフ�
 # シェルの状態
 # zle
 
+# 履歴の設定
+HISTSIZE=1000
+SAVEHIST=100000
+HISTORY_IGNORE="(ls|cd|pwd|exit)"
+
 # エイリアスの設定
 alias ls='lsd -F'
 alias ll='ls -l'
