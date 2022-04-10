@@ -2,6 +2,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_BIN_HOME="$HOME/.local/bin"
 
 # 言語の設定
 export LANG="en_US.UTF-8"
@@ -15,10 +16,11 @@ export LESS="-iRSL -x4 -z-4 -j.5"
 
 # Golangの設定
 export GOPATH="$XDG_DATA_HOME/go"
+export GOBIN="$XDG_BIN_HOME"
 
 # PATHの設定
 path=(
-  $GOPATH/bin(N-/)
+  $XDG_BIN_HOME(N-/)
   $HOME/.cargo/bin(N-/)
   $path
 )
