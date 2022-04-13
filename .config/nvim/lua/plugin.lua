@@ -11,6 +11,11 @@ end
 -- このファイル編集時に設定再読み込み
 cmd("autocmd init BufWritePost " .. fn.stdpath("config") .. "/init.lua source <afile> | PackerCompile")
 
+-- 設定ファイル読み込み用関数
+local load = function(name)
+  return 'require("plugin/' .. name ..'")'
+end
+
 -- Packerの設定開始
 cmd("packadd packer.nvim")
 require("packer").startup(function ()
@@ -20,26 +25,10 @@ require("packer").startup(function ()
   use { "sheerun/vim-polyglot" }
 
   -- ヘルプの日本語化
-  use {
-    "vim-jp/vimdoc-ja",
-    config = function ()
-      -- 参照するヘルプの日本語の優先順位を上げる
-      vim.o.helplang = "ja,en"
-    end
-  }
+  use { "vim-jp/vimdoc-ja", config = load("vimdoc-ja") }
 
   -- Nordカラースキーム(Tree-Sitter対応版)
-  use {
-    "shaunsingh/nord.nvim",
-    config = function ()
-      -- 背景を透過させる
-      vim.g.nord_disable_background = true
-      -- ウィンドウの区切り線を表示
-      vim.g.nord_borders = true
-
-      require("nord").set()
-    end
-  }
+  use { "shaunsingh/nord.nvim", config = load("nord") }
 
   -- ステータスライン
   use {
@@ -48,48 +37,23 @@ require("packer").startup(function ()
       { "kyazdani42/nvim-web-devicons", opt = true },
       "shaunsingh/nord.nvim"
     },
-    config = function ()
-      require("lualine").setup {
-        options = {
-          -- カラースキームをNordに変更
-          theme = "nord",
-        }
-      }
-    end
+    config = load("lualine"),
   }
 
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    config = function ()
-      require("nvim-treesitter.configs").setup {
-        -- 全言語有効にする
-        ensure_installed = "all",
-        -- シンタックスハイライトを有効
-        highlight = { enable = true },
-      }
-    end
+    config = load("nvim-treesitter"),
   }
 
   -- 囲い込み系キーバインドの強化
   use {
     "ur4ltz/surround.nvim",
     requires = { "tpope/vim-repeat" },
-    config = function ()
-      require("surround").setup {
-        mappings_style = "surround",
-      }
-    end
+    config = load("surround"),
   }
 
   -- 自動囲い込み閉じ
-  use {
-    "windwp/nvim-autopairs",
-    config = function ()
-      require("nvim-autopairs").setup {
-        enable_check_bracket_line = true,
-      }
-    end
-  }
+  use { "windwp/nvim-autopairs", config = load("nvim-autopairs") }
 end)
