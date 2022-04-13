@@ -247,4 +247,15 @@ require("packer").startup(function ()
       }
     end
   }
+
+  -- 囲い込み系キーバインドの強化
+  use {
+    "ur4ltz/surround.nvim",
+    requires = { "tpope/vim-repeat" },
+    config = function ()
+      require("surround").setup {
+        mappings_style = "surround",
+      }
+    end
+  }
 end)
