@@ -3,7 +3,9 @@ vim.cmd("augroup init")
 vim.cmd("autocmd!")
 vim.cmd("augroup END")
 
--- キャッシュディレクトリの設定
+-- 各種ディレクトリの設定
+config_dir = vim.env.XDG_CONFIG_HOME .. "/nvim"
+data_dir = vim.env.XDG_DATA_HOME .. "/nvim"
 cache_dir = vim.env.XDG_CACHE_HOME .. "/nvim"
 
 -- バッファやレジスタ内で使用する文字コードを指定
@@ -173,3 +175,20 @@ function mkdir(dir, force)
   end
 end
 vim.cmd("autocmd init BufWritePre * call v:lua.mkdir(expand('<afile>:p:h'), v:cmdbang)")
+
+
+-- プラグインの設定
+-- Packer.nvimが無ければ自動インストールする
+local packer_dir = data_dir .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(packer_dir)) > 0 then
+  vim.cmd("!git clone --depth=1 https://github.com/wbthomason/packer.nvim " .. packer_dir)
+end
+
+-- このファイル編集時に設定再読み込み
+vim.cmd("autocmd init BufWritePost init.lua source " .. config_dir .. "/init.lua | PackerCompile")
+
+-- Packerの設定開始
+vim.cmd("packadd packer.nvim")
+require("packer").startup(function ()
+  use "wbthomason/packer.nvim"
+end)
