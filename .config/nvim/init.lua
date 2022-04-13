@@ -1,12 +1,11 @@
--- autocmdの設定
-vim.cmd("augroup init")
-vim.cmd("autocmd!")
-vim.cmd("augroup END")
+-- 一部関数にエイリアスを貼る
+local fn = vim.fn
+local cmd = vim.cmd
 
--- 各種ディレクトリの設定
-config_dir = vim.env.XDG_CONFIG_HOME .. "/nvim"
-data_dir = vim.env.XDG_DATA_HOME .. "/nvim"
-cache_dir = vim.env.XDG_CACHE_HOME .. "/nvim"
+-- autocmdの設定
+cmd("augroup init")
+cmd("autocmd!")
+cmd("augroup END")
 
 -- バッファやレジスタ内で使用する文字コードを指定
 vim.o.encoding = "utf-8"
@@ -15,10 +14,10 @@ vim.o.encoding = "utf-8"
 vim.o.fileencodings = "utf-8,iso-2033-jp,enc-jp,sjis"
 
 -- viminfoファイルの出力先を変更
-vim.o.viminfo = vim.o.viminfo .. ",n" .. cache_dir .. "/viminfo"
+vim.o.viminfo = vim.o.viminfo .. ",n" .. fn.stdpath("cache") .. "/info"
 
 -- Undo履歴を永続化
-vim.o.undodir = cache_dir .. "/nvimundo"
+vim.o.undodir = fn.stdpath("cache") .. "/undo"
 vim.bo.undofile = true
 
 -- Swapファイルの出力先を変更
@@ -50,8 +49,8 @@ vim.o.showtabline = 2
 vim.o.hlsearch = true
 
 -- 検索時のみ大文字小文字を区別しない
-vim.cmd("autocmd init CmdlineEnter [/?] set ignorecase")
-vim.cmd("autocmd init CmdlineLeave [/?] set noignorecase")
+cmd("autocmd init CmdlineEnter [/?] set ignorecase")
+cmd("autocmd init CmdlineLeave [/?] set noignorecase")
 
 -- 大文字が含まれる場合は区別する
 vim.o.smartcase = true
@@ -148,7 +147,7 @@ vim.api.nvim_set_keymap("n", "<S-Up>",    "<C-w>-", { noremap = true })
 vim.api.nvim_set_keymap("n", "<S-Right>", "<C-w>>", { noremap = true })
 
 -- QuickFix及びHelpではqで閉じる
-vim.cmd("autocmd init FileType help,qf nnoremap <buffer> q <C-w>c")
+cmd("autocmd init FileType help,qf nnoremap <buffer> q <C-w>c")
 
 -- w!!でスーパーユーザーとして保存
 vim.api.nvim_set_keymap("c", "w!!", "w !sudo tee > /dev/null %", {})
@@ -166,29 +165,29 @@ vim.api.nvim_set_keymap(
 )
 
 -- make, grepなどのコマンドの後に自動的にQuickFixを開く
-vim.cmd("autocmd init QuickfixCmdPost make,grep,grepadd,vimgrep copen")
+cmd("autocmd init QuickfixCmdPost make,grep,grepadd,vimgrep copen")
 
 -- フォルダが存在しない場合に自動作成する
 function mkdir(dir, force)
-  if vim.fn.isdirectory(dir) and (force or string.match(vim.fn.input(vim.fn.printf('"%s" does not exist. Create? [y/N]', dir)), "^y(es)?$")) then
-    vim.fn.mkdir(dir, "p")
+  if fn.isdirectory(dir) and (force or string.match(fn.input(fn.printf('"%s" does not exist. Create? [y/N]', dir)), "^y(es)?$")) then
+    fn.mkdir(dir, "p")
   end
 end
-vim.cmd("autocmd init BufWritePre * call v:lua.mkdir(expand('<afile>:p:h'), v:cmdbang)")
+cmd("autocmd init BufWritePre * call v:lua.mkdir(expand('<afile>:p:h'), v:cmdbang)")
 
 
 -- プラグインの設定
 -- Packer.nvimが無ければ自動インストールする
-local packer_dir = data_dir .. "/site/pack/packer/opt/packer.nvim"
-if vim.fn.empty(vim.fn.glob(packer_dir)) > 0 then
-  vim.cmd("!git clone --depth=1 https://github.com/wbthomason/packer.nvim " .. packer_dir)
+local packer_dir = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+if fn.empty(fn.glob(packer_dir)) > 0 then
+  cmd("!git clone --depth=1 https://github.com/wbthomason/packer.nvim " .. packer_dir)
 end
 
 -- このファイル編集時に設定再読み込み
-vim.cmd("autocmd init BufWritePost init.lua source " .. config_dir .. "/init.lua | PackerCompile")
+cmd("autocmd init BufWritePost " .. fn.stdpath("config") .. "/init.lua source " .. fn.stdpath("config") .. "/init.lua | PackerCompile")
 
 -- Packerの設定開始
-vim.cmd("packadd packer.nvim")
+cmd("packadd packer.nvim")
 require("packer").startup(function ()
   use { "wbthomason/packer.nvim", opt = true }
 
