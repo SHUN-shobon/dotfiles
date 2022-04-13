@@ -230,4 +230,18 @@ require("packer").startup(function ()
       }
     end
   }
+
+  -- Treesitter
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    config = function ()
+      require("nvim-treesitter.configs").setup {
+        -- 全言語有効にする
+        ensure_installed = "all",
+        -- シンタックスハイライトを有効
+        highlight = { enable = true },
+      }
+    end
+  }
 end)
