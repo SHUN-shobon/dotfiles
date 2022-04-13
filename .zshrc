@@ -53,6 +53,15 @@ alias g='git'
 alias d='docker'
 alias e='nvim'
 
+# lazygit
+function lg() {
+  if [[ -n $TMUX ]]; then
+    tmux popup -w80% -h80% -d '#{pane_current_path}' -E 'lazygit'
+  else
+    lazygit
+  fi
+}
+
 # asdfの設定
 source ~/.asdf/asdf.sh
 
