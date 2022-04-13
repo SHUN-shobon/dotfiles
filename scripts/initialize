@@ -6,8 +6,8 @@ fzf_version="0.30.0"
 
 set -ue
 
-cd "$(dirname $0)"
-SCRIPT_DIR="$(pwd)"
+SCRIPT_DIR="$(dirname $0)"
+cd $SCRIPT_DIR
 
 source "$SCRIPT_DIR/utils.sh"
 
