@@ -179,7 +179,7 @@ vim.cmd("autocmd init BufWritePre * call v:lua.mkdir(expand('<afile>:p:h'), v:cm
 
 -- プラグインの設定
 -- Packer.nvimが無ければ自動インストールする
-local packer_dir = data_dir .. "/site/pack/packer/start/packer.nvim"
+local packer_dir = data_dir .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(packer_dir)) > 0 then
   vim.cmd("!git clone --depth=1 https://github.com/wbthomason/packer.nvim " .. packer_dir)
 end
@@ -190,5 +190,44 @@ vim.cmd("autocmd init BufWritePost init.lua source " .. config_dir .. "/init.lua
 -- Packerの設定開始
 vim.cmd("packadd packer.nvim")
 require("packer").startup(function ()
-  use "wbthomason/packer.nvim"
+  use { "wbthomason/packer.nvim", opt = true }
+
+  -- ファイルタイプ別の設定などを追加するプラグイン
+  use { "sheerun/vim-polyglot" }
+
+  -- ヘルプの日本語化
+  use {
+    "vim-jp/vimdoc-ja",
+    config = function ()
+      -- 参照するヘルプの日本語の優先順位を上げる
+      vim.o.helplang = "ja,en"
+    end
+  }
+
+  -- Nordカラースキーム(Tree-Sitter対応版)
+  use {
+    "shaunsingh/nord.nvim",
+    config = function ()
+      -- 背景を透過させる
+      vim.g.nord_disable_background = true
+      -- ウィンドウの区切り線を表示
+      vim.g.nord_borders = true
+
+      require("nord").set()
+    end
+  }
+
+  -- ステータスライン
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    config = function ()
+      require("lualine").setup {
+        options = {
+          -- カラースキームをNordに変更
+          theme = "nord",
+        }
+      }
+    end
+  }
 end)
