@@ -220,7 +220,10 @@ require("packer").startup(function ()
   -- ステータスライン
   use {
     "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    requires = {
+      { "kyazdani42/nvim-web-devicons", opt = true },
+      "shaunsingh/nord.nvim"
+    },
     config = function ()
       require("lualine").setup {
         options = {
