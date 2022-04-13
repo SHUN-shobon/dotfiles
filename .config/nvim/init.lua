@@ -184,7 +184,7 @@ if fn.empty(fn.glob(packer_dir)) > 0 then
 end
 
 -- このファイル編集時に設定再読み込み
-cmd("autocmd init BufWritePost " .. fn.stdpath("config") .. "/init.lua source " .. fn.stdpath("config") .. "/init.lua | PackerCompile")
+cmd("autocmd init BufWritePost " .. fn.stdpath("config") .. "/init.lua source <afile> | PackerCompile")
 
 -- Packerの設定開始
 cmd("packadd packer.nvim")
