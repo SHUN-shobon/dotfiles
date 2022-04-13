@@ -27,3 +27,4 @@
 	features = zebra-dark
 [ghq]
 	root = ~/projects
+        user = shun-shobon
