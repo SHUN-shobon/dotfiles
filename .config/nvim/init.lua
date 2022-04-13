@@ -257,4 +257,14 @@ require("packer").startup(function ()
       }
     end
   }
+
+  -- 自動囲い込み閉じ
+  use {
+    "windwp/nvim-autopairs",
+    config = function ()
+      require("nvim-autopairs").setup {
+        enable_check_bracket_line = true,
+      }
+    end
+  }
 end)
