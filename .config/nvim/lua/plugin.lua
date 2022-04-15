@@ -57,6 +57,17 @@ require("packer").startup(function ()
   -- 自動囲い込み閉じ
   use { "windwp/nvim-autopairs", config = load("nvim-autopairs") }
 
+  -- ファイルツリー
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = load("neo-tree"),
+  }
+
   -- 補完
   use {
     "hrsh7th/nvim-cmp",
