@@ -68,5 +68,8 @@ vim.bo.smartindent = true
 -- 補完の仕方を変更
 vim.o.completeopt = "menuone,noinsert,noselect"
 
+-- 補完を透過させる
+vim.o.pumblend = 10
+
 -- 補完時にメッセージを出さない
 vim.o.shortmess = vim.o.shortmess .. "c"

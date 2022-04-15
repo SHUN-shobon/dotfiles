@@ -56,4 +56,30 @@ require("packer").startup(function ()
 
   -- 自動囲い込み閉じ
   use { "windwp/nvim-autopairs", config = load("nvim-autopairs") }
+
+  -- 補完
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-nvim-lsp-document-symbol",
+      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
+      "onsails/lspkind-nvim",
+    },
+    config = load("nvim-cmp"),
+  }
+
+  -- LSP
+  use {
+    "neovim/nvim-lspconfig",
+    requires = { "hrsh7th/cmp-nvim-lsp" },
+    config = load("nvim-lspconfig"),
+  }
+
+  -- LSPのステータスを表示する
+  use { "j-hui/fidget.nvim", config = load("fidget") }
 end)
