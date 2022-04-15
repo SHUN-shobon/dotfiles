@@ -84,6 +84,7 @@ require("packer").startup(function ()
 
   -- LSPの見た目を良くする
   use { "tami5/lspsaga.nvim", config = load("lspsaga") }
+  use { "folke/lsp-colors.nvim", config = load("lsp-colors") }
 
   -- LSPのステータスを表示する
   use { "j-hui/fidget.nvim", config = load("fidget") }
