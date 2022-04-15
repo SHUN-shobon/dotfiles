@@ -76,9 +76,14 @@ require("packer").startup(function ()
   -- LSP
   use {
     "neovim/nvim-lspconfig",
-    requires = { "hrsh7th/cmp-nvim-lsp" },
+    requires = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = load("nvim-lspconfig"),
   }
+
+  -- LSPの見た目を良くする
+  use { "tami5/lspsaga.nvim", config = load("lspsaga") }
 
   -- LSPのステータスを表示する
   use { "j-hui/fidget.nvim", config = load("fidget") }
