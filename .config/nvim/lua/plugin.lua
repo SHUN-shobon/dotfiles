@@ -68,6 +68,9 @@ require("packer").startup(function ()
     config = load("neo-tree"),
   }
 
+  -- Gitの状態表示
+  use { "lewis6991/gitsigns.nvim", config = load("gitsigns") }
+
   -- 検索の表示を良くする
   use { "kevinhwang91/nvim-hlslens", config = load("nvim-hlslens") }
 
