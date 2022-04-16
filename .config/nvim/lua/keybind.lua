@@ -33,22 +33,6 @@ vim.api.nvim_set_keymap("n", "[Prefix]", "", { noremap = true })
 -- <Space>に[Prefix]を割り当て
 vim.api.nvim_set_keymap("n", "<Space>", "[Prefix]", {})
 
--- <Esc>x2でハイライトオフ
-vim.api.nvim_set_keymap(
-  "n",
-  "<Esc><Esc>",
-  "<Cmd>nohlsearch<CR>",
-  { noremap = true, silent = true }
-)
-
--- 検索結果を画面中央に表示
-vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true })
-vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true })
-vim.api.nvim_set_keymap("n", "*", "*zz", { noremap = true })
-vim.api.nvim_set_keymap("n", "#", "#zz", { noremap = true })
-vim.api.nvim_set_keymap("n", "g*", "g*zz", { noremap = true })
-vim.api.nvim_set_keymap("n", "g#", "g#zz", { noremap = true })
-
 -- 表示行でj, k移動
 vim.api.nvim_set_keymap("n", "j", "gj", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "k", "gk", { noremap = true, silent = true })

@@ -68,6 +68,12 @@ require("packer").startup(function ()
     config = load("neo-tree"),
   }
 
+  -- 検索の表示を良くする
+  use { "kevinhwang91/nvim-hlslens", config = load("nvim-hlslens") }
+
+  -- スクロールバー
+  use { "petertriho/nvim-scrollbar", config = load("nvim-scrollbar") }
+
   -- 補完
   use {
     "hrsh7th/nvim-cmp",
