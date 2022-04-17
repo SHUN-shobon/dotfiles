@@ -56,6 +56,14 @@ require("packer").startup(function ()
     config = load("nvim-gps"),
   }
 
+  -- 関数の引数だけ色を変える
+  use {
+    "m-demare/hlargs.nvim",
+    after = "nord.nvim",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = load("hlargs"),
+  }
+
   -- 囲い込み系キーバインドの強化
   use {
     "ur4ltz/surround.nvim",
