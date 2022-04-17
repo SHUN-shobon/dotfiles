@@ -64,6 +64,13 @@ require("packer").startup(function ()
     config = load("hlargs"),
   }
 
+  -- Unitと呼ばれるテキストオブジェクトを追加
+  use {
+    "David-Kunz/treesitter-unit",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = load("treesitter-unit"),
+  }
+
   -- 囲い込み系キーバインドの強化
   use {
     "ur4ltz/surround.nvim",
