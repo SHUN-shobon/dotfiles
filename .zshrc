@@ -85,3 +85,6 @@ zinit wait lucid light-mode depth"1" for \
 
 # 補完の有効化
 autoload -Uz compinit && compinit -i
+
+# Starshipプロンプトを有効化
+eval "$(starship init zsh)"

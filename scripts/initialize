@@ -41,6 +41,7 @@ has bat || cargo install bat
 has rg || cargo install ripgrep
 has fd || cargo install fd-find
 has delta || cargo install git-delta
+has starship || cargo install starship
 
 # Rust Analyzerのインストール
 if ! has rust-analyzer; then
