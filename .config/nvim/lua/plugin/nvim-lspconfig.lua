@@ -18,4 +18,23 @@ local on_attach = function (client, bufnr)
   buf_set_keymap("n", "[Prefix][", "<Cmd>Lspsaga diagnostics_jump_prev<CR>", opts)
 end
 
+-- C / C++
+lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
+-- Rust
 lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities }
+-- JavaScript / TypeScript
+lspconfig.tsserver.setup { on_attach = on_attach, capabilities = capabilities }
+-- HTML
+lspconfig.html.setup { on_attach = on_attach, capabilities = capabilities }
+-- CSS / SCSS / Less
+lspconfig.cssls.setup { on_attach = on_attach, capabilities = capabilities }
+-- CSS Module
+lspconfig.cssmodules_ls.setup { on_attach = on_attach, capabilities = capabilities }
+-- TailwindCSS
+lspconfig.tailwindcss.setup { on_attach = on_attach, capabilities = capabilities }
+-- JSON
+lspconfig.jsonls.setup { on_attach = on_attach, capabilities = capabilities }
+-- YAML
+lspconfig.yamlls.setup { on_attach = on_attach, capabilities = capabilities }
+-- Bash
+lspconfig.bashls.setup { on_attach = on_attach, capabilities = capabilities }

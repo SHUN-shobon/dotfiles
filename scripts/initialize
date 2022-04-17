@@ -65,6 +65,18 @@ if ! has asdf; then
   asdf install
 fi
 
+# Node製ツールのインストール
+has init yarn || npm install -g yarn
+has init pnpm || npm install -g pnpm
+has init tsc || npm install -g typescript
+has init typescript-language-server || npm install -g typescript-language-server
+has init yaml-language-server || npm install -g yaml-language-server
+has init vscode-html-language-server || npm install -g vscode-langservers-extracted
+has init tailwindcss-language-server || npm install -g @tailwindcss/language-server
+has init cssmodules-language-server || npm install -g cssmodules-language-server
+has init bash-language-server || npm install -g bash-language-server
+has init dockerfile-langserver || npm install -g dockerfile-language-server-nodejs
+
 # Go製ツールのインストール
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$HOME/.local/bin"
