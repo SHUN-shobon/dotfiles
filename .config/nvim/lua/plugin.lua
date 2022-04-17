@@ -37,6 +37,7 @@ require("packer").startup(function ()
     after = "nord.nvim",
     requires = {
       { "kyazdani42/nvim-web-devicons", opt = true },
+      { "SmiteshP/nvim-gps" },
     },
     config = load("lualine"),
   }
@@ -46,6 +47,13 @@ require("packer").startup(function ()
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = load("nvim-treesitter"),
+  }
+
+  -- 今いる関数名を表示する
+  use {
+    "SmiteshP/nvim-gps",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = load("nvim-gps"),
   }
 
   -- 囲い込み系キーバインドの強化
