@@ -77,6 +77,9 @@ require("packer").startup(function ()
   -- スクロールバー
   use { "petertriho/nvim-scrollbar", config = load("nvim-scrollbar") }
 
+  -- WakaTime
+  use { "wakatime/vim-wakatime" }
+
   -- 補完
   use {
     "hrsh7th/nvim-cmp",
