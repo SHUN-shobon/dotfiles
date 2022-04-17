@@ -9,7 +9,7 @@ if fn.empty(fn.glob(packer_dir)) > 0 then
 end
 
 -- このファイル編集時に設定再読み込み
-cmd("autocmd init BufWritePost " .. fn.stdpath("config") .. "/init.lua source <afile> | PackerCompile")
+cmd("autocmd init BufWritePost .config/nvim/lua/plugin.lua source <afile> | PackerCompile")
 
 -- 設定ファイル読み込み用関数
 local load = function(name)
