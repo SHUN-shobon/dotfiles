@@ -33,9 +33,10 @@ require("packer").startup(function ()
   -- ステータスライン
   use {
     "nvim-lualine/lualine.nvim",
+    -- nord.nvimの前に読み込むとthemeが壊れるのでnord.nvimが読み込まれると読み込むようにする
+    after = "nord.nvim",
     requires = {
       { "kyazdani42/nvim-web-devicons", opt = true },
-      "shaunsingh/nord.nvim"
     },
     config = load("lualine"),
   }
