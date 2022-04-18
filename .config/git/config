@@ -1,5 +1,5 @@
 [core]
-	pager = delta
+	pager = delta -s
 [user]
 	email = me@shun.technology
 	name = Shuntaro Nishizawa
@@ -21,10 +21,9 @@
 	diffFilter = delta --color-only
 [delta]
 	syntax-theme = Nord
-	side-by-side = true
 	line-numbers = true
 	navigate = true
 	features = zebra-dark
 [ghq]
 	root = ~/projects
-        user = shun-shobon
+	user = shun-shobon
