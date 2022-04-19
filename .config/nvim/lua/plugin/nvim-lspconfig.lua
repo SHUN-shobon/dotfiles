@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function (client, bufnr)
+local on_attach = function (_, bufnr)
   local buf_set_keymap = function (...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = { noremap = true, silent = true }
 
@@ -38,3 +38,24 @@ lspconfig.jsonls.setup { on_attach = on_attach, capabilities = capabilities }
 lspconfig.yamlls.setup { on_attach = on_attach, capabilities = capabilities }
 -- Bash
 lspconfig.bashls.setup { on_attach = on_attach, capabilities = capabilities }
+-- Lua
+-- TODO: Dotfiles専用の設定にしたい
+-- Neovim専用設定
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+lspconfig.sumneko_lua.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {"vim"},
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+    },
+  },
+}
