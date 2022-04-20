@@ -1,8 +1,8 @@
 local lspconfig = require("lspconfig")
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function (_, bufnr)
-  local buf_set_keymap = function (...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local on_attach = function(client, bufnr)
+  local buf_set_keymap = function(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = { noremap = true, silent = true }
 
   buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -16,6 +16,15 @@ local on_attach = function (_, bufnr)
   buf_set_keymap("n", "[Prefix]e", "<Cmd>Lspsaga show_line_diagnostics<CR>", opts)
   buf_set_keymap("n", "[Prefix]]", "<Cmd>Lspsaga diagnostics_jump_next<CR>", opts)
   buf_set_keymap("n", "[Prefix][", "<Cmd>Lspsaga diagnostics_jump_prev<CR>", opts)
+
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd [[
+      augroup LspFormatting
+        autocmd! * <buffer>
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+      augroup END
+    ]]
+  end
 end
 
 -- C / C++
@@ -60,7 +69,7 @@ lspconfig.sumneko_lua.setup {
   settings = {
     Lua = {
       diagnostics = {
-        globals = {"vim"},
+        globals = { "vim" },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
