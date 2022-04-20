@@ -18,7 +18,7 @@ end
 
 -- Packerの設定開始
 cmd("packadd packer.nvim")
-require("packer").startup(function ()
+require("packer").startup(function (use)
   use { "wbthomason/packer.nvim", opt = true }
 
   -- ファイルタイプ別の設定などを追加するプラグイン

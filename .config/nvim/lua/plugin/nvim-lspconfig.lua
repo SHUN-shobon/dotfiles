@@ -21,7 +21,16 @@ end
 -- C / C++
 lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities }
 -- Rust
-lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities }
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      procMacro = { enable = true },
+      checkOnSave = { command = "clippy" },
+    },
+  },
+}
 -- JavaScript / TypeScript
 lspconfig.tsserver.setup { on_attach = on_attach, capabilities = capabilities }
 -- HTML

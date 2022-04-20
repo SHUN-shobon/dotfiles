@@ -73,6 +73,7 @@ vim.api.nvim_set_keymap(
 cmd("autocmd init QuickfixCmdPost make,grep,grepadd,vimgrep copen")
 
 -- フォルダが存在しない場合に自動作成する
+---@diagnostic disable-next-line: lowercase-global
 function mkdir(dir, force)
   if fn.isdirectory(dir) and (force or string.match(fn.input(fn.printf('"%s" does not exist. Create? [y/N]', dir)), "^y(es)?$")) then
     fn.mkdir(dir, "p")
