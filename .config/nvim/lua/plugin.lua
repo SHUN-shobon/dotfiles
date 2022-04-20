@@ -108,6 +108,9 @@ require("packer").startup(function(use)
   -- WakaTime
   use { "wakatime/vim-wakatime" }
 
+  -- プロジェクトルートに自動移動
+  use { "ahmedkhalf/project.nvim", config = load("project") }
+
   -- 補完
   use {
     "hrsh7th/nvim-cmp",
