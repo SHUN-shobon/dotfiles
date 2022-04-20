@@ -46,9 +46,9 @@ vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true })
 -- Ctrl + 矢印キーでウィンドウリサイズ
-vim.api.nvim_set_keymap("n", "<S-Left>",  "<C-w><", { noremap = true })
-vim.api.nvim_set_keymap("n", "<S-Down>",  "<C-w>+", { noremap = true })
-vim.api.nvim_set_keymap("n", "<S-Up>",    "<C-w>-", { noremap = true })
+vim.api.nvim_set_keymap("n", "<S-Left>", "<C-w><", { noremap = true })
+vim.api.nvim_set_keymap("n", "<S-Down>", "<C-w>+", { noremap = true })
+vim.api.nvim_set_keymap("n", "<S-Up>", "<C-w>-", { noremap = true })
 vim.api.nvim_set_keymap("n", "<S-Right>", "<C-w>>", { noremap = true })
 
 -- QuickFix及びHelpではqで閉じる
@@ -79,4 +79,5 @@ function mkdir(dir, force)
     fn.mkdir(dir, "p")
   end
 end
+
 cmd("autocmd init BufWritePre * call v:lua.mkdir(expand('<afile>:p:h'), v:cmdbang)")

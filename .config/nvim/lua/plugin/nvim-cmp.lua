@@ -22,10 +22,10 @@ cmp.setup {
       -- 補完候補が表示されていたときは確定する
       if cmp.visible() then
         cmp.confirm({ select = true })
-      -- スニペットが展開できるかジャンプ可能な場合は展開かジャンプする
+        -- スニペットが展開できるかジャンプ可能な場合は展開かジャンプする
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      -- それ以外の場合はフォールバックする
+        -- それ以外の場合はフォールバックする
       else
         fallback()
       end
@@ -34,11 +34,11 @@ cmp.setup {
       -- 補完候補が表示されていたときは一つ前を選択する
       if cmp.visible() then
         cmp.select_prev_item()
-      -- スニペットがジャンプ可能な場合はジャンプする
+        -- スニペットがジャンプ可能な場合はジャンプする
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
-      -- それ以外の場合はフォールバックする
+        -- それ以外の場合はフォールバックする
         fallback()
       end
     end),

@@ -1,6 +1,6 @@
 -- autocmdの設定
 vim.cmd [[
-	augroup init
+  augroup init
   autocmd!
   augroup END
 ]]

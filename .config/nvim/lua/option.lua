@@ -1,5 +1,4 @@
 local fn = vim.fn
-local cmd = vim.cmd
 
 -- バッファやレジスタ内で使用する文字コードを指定
 vim.o.encoding = "utf-8"

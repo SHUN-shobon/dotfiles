@@ -13,12 +13,12 @@ cmd("autocmd init BufWritePost .config/nvim/lua/plugin.lua source <afile> | Pack
 
 -- 設定ファイル読み込み用関数
 local load = function(name)
-  return 'require("plugin/' .. name ..'")'
+  return 'require("plugin/' .. name .. '")'
 end
 
 -- Packerの設定開始
 cmd("packadd packer.nvim")
-require("packer").startup(function (use)
+require("packer").startup(function(use)
   use { "wbthomason/packer.nvim", opt = true }
 
   -- ファイルタイプ別の設定などを追加するプラグイン
@@ -28,7 +28,11 @@ require("packer").startup(function (use)
   use { "vim-jp/vimdoc-ja", config = load("vimdoc-ja") }
 
   -- Nordカラースキーム(Tree-Sitter対応版)
-  use { "shaunsingh/nord.nvim", config = load("nord") }
+  use {
+    "shaunsingh/nord.nvim",
+    after = "neo-tree.nvim",
+    config = load("nord"),
+  }
 
   -- ステータスライン
   use {
@@ -130,7 +134,11 @@ require("packer").startup(function (use)
   }
 
   -- LSPの見た目を良くする
-  use { "tami5/lspsaga.nvim", config = load("lspsaga") }
+  use {
+    "tami5/lspsaga.nvim",
+    after = "nord.nvim",
+    config = load("lspsaga"),
+  }
   use { "folke/lsp-colors.nvim", config = load("lsp-colors") }
 
   -- LSPのステータスを表示する
