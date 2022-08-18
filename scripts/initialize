@@ -7,9 +7,9 @@ fzf_version="0.30.0"
 set -ue
 
 SCRIPT_DIR="$(dirname $0)"
-cd $SCRIPT_DIR
-
 source "$SCRIPT_DIR/utils.sh"
+
+cd $SCRIPT_DIR
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
