@@ -27,3 +27,5 @@
 [ghq]
 	root = ~/projects
 	user = shun-shobon
+[init]
+	defaultBranch = master
