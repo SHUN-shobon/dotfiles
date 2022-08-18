@@ -26,7 +26,12 @@ export GOBIN="$XDG_BIN_HOME"
 
 # PATHの設定
 path=(
+  /usr/local/texlive/2022/bin/universal-darwin(N-/)
+  /usr/local/opt/llvm/bin(N-/)
   $XDG_BIN_HOME(N-/)
   $HOME/.cargo/bin(N-/)
+  $HOME/.deno/bin(N-/)
+  $HOME/.cabal/bin(N-/)
+  $HOME/.ghcup/bin(N-/)
   $path
 )
