@@ -1,0 +1,36 @@
+inoremap jj <Esc>
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+nnoremap j gj
+nnoremap k gk
+
+vnoremap v $h
+
+nnoremap <silent> gd :<C-u>action GotoDeclaration<CR>
+nnoremap <silent> gs :<C-u>action GotoSuperMethod<CR>
+nnoremap <silent> gi :<C-u>action GotoImplementation<CR>
+nnoremap <silent> gb :<C-u>action JumpToLastChange<CR>
+
+nnoremap <silent> U :<C-u>action FindUsages<CR>
+nnoremap <silent> R :<C-u>action RenameElement<CR>
+
+nnoremap <silent> == :<C-u>action ReformatCode<CR>
+vnoremap <silent> == :<C-u>action ReformatCode<CR>
+
+nnoremap <silent> cc :<C-u>action CommentByLineComment<CR>
+vnoremap <silent> cc :<C-u>action CommentByLineComment<CR>
+
+nnoremap <silent> <C-CR> :<C-u>action ShowIntentionActions<CR>
+
+set surround
+
+set hlsearch
+set incsearch
+set nohlsearch 
