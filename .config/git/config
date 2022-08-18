@@ -14,7 +14,7 @@
 	algorithm = histogram
 	colorMoved = zebra
 [url "git@github.com:"]
-    pushInsteadOf = https://github.com/
+	pushInsteadOf = https://github.com/
 [gpg]
 	program = gpg
 [interactive]
