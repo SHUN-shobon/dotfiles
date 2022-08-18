@@ -40,8 +40,10 @@ lspconfig.rust_analyzer.setup {
     },
   },
 }
--- JavaScript / TypeScript
-lspconfig.tsserver.setup { on_attach = on_attach, capabilities = capabilities }
+-- LaTeX
+lspconfig.texlab.setup { on_attach = on_attach, capabilities = capabilities }
+-- Haskell
+lspconfig.hls.setup { on_attach = on_attach, capabilities = capabilities }
 -- HTML
 lspconfig.html.setup { on_attach = on_attach, capabilities = capabilities }
 -- CSS / SCSS / Less
@@ -76,4 +78,16 @@ lspconfig.sumneko_lua.setup {
       },
     },
   },
+}
+
+-- TypeScript
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern("package.json")
+}
+lspconfig.denols.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern("mod.ts")
 }
