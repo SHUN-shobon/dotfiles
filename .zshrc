@@ -62,7 +62,7 @@ function lg() {
   fi
 }
 
-# asdfの設定
+# asdfを読み込む
 source ~/.asdf/asdf.sh
 
 # zinitの設定
@@ -88,3 +88,6 @@ autoload -Uz compinit && compinit -i
 
 # Starshipプロンプトを有効化
 eval "$(starship init zsh)"
+
+# direnvを読み込む
+source "${XDG_CONFIG_HOME}/asdf-direnv/zshrc"
