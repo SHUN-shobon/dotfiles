@@ -14,6 +14,12 @@ export EDITOR="nvim"
 export PAGER="less"
 export LESS="-iRSL -x4 -z-4 -j.5"
 
+# SSHの設定
+# gpg-agentを起動
+gpg-connect-agent --quiet /bye
+# ssh-agentのソケットファイルをgpg-agentに変更する
+SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
 # Golangの設定
 export GOPATH="$XDG_DATA_HOME/go"
 export GOBIN="$XDG_BIN_HOME"
