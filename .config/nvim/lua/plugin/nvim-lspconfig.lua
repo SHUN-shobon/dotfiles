@@ -1,6 +1,6 @@
 local lspconfig = require("lspconfig")
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
   local buf_set_keymap = function(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = { noremap = true, silent = true }
@@ -17,7 +17,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "[Prefix]]", "<Cmd>Lspsaga diagnostics_jump_next<CR>", opts)
   buf_set_keymap("n", "[Prefix][", "<Cmd>Lspsaga diagnostics_jump_prev<CR>", opts)
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.cmd [[
       augroup LspFormatting
         autocmd! * <buffer>
