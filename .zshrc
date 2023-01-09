@@ -62,6 +62,26 @@ function lg() {
   fi
 }
 
+function fq() {
+  local repo="$(ghq list | fzf --reverse +m)"
+  if [[ -n "$repo" ]]; then
+    local dir="$(ghq root)/$repo"
+    print -s cd $dir
+    cd $dir
+  fi
+}
+alias fq=' fq'
+
+function fcode() {
+  local repo="$(ghq list | fzf --reverse +m)"
+  if [[ -n "$repo" ]]; then
+    local dir="$(ghq root)/$repo"
+    print -s code $dir
+    code $dir
+  fi
+}
+alias fcode=' fcode'
+
 # asdfを読み込む
 source ~/.asdf/asdf.sh
 
