@@ -35,3 +35,6 @@ path=(
   $HOME/.ghcup/bin(N-/)
   $path
 )
+
+# clangだけ元のものを使用する
+alias clang="/usr/bin/clang"
