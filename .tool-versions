@@ -1,4 +1,4 @@
-nodejs lts
+nodejs 18.14.2
 golang 1.19
 lua-language-server 3.5.3
 direnv 2.32.1
