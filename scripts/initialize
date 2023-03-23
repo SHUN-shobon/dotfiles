@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # config
 asdf_version="v0.9.0"
@@ -6,10 +6,7 @@ fzf_version="0.30.0"
 
 set -ue
 
-SCRIPT_DIR="$(dirname $0)"
-source "$SCRIPT_DIR/utils.sh"
-
-cd $SCRIPT_DIR
+source "$(dirname "${BASH_SOURCE[0]}")/util.sh"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -18,7 +15,7 @@ if ! has rustup; then
   curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path -c rust-src
 fi
 
-cat <<EOF > $HOME/.cargo/config.toml
+cat <<EOF >"$HOME"/.cargo/config.toml
 [build]
 rustflags = ["-C", "target-cpu=native"]
 
@@ -31,7 +28,8 @@ EOF
 if ! has sccache; then
   cargo install sccache
 fi
-export RUSTC_WRAPPER="$(which sccache)"
+RUSTC_WRAPPER="$(which sccache)"
+export RUSTC_WRAPPER
 
 # Rust製ツールのインストール
 has cargo-add || cargo install cargo-edit
@@ -46,18 +44,18 @@ has starship || cargo install starship
 # Rust Analyzerのインストール
 if ! has rust-analyzer; then
   rust_analyzer_dir="$(mktemp -d)"
-  git clone --depth=1 https://github.com/rust-analyzer/rust-analyzer.git $rust_analyzer_dir
-  cd $rust_analyzer_dir
-  $HOME/.cargo/bin/cargo xtask install --server
-  cd $SCRIPT_DIR
-  rm -rf $rust_analyzer_dir
+  git clone --depth=1 https://github.com/rust-analyzer/rust-analyzer.git "$rust_analyzer_dir"
+  cd "$rust_analyzer_dir"
+  "$HOME"/.cargo/bin/cargo xtask install --server
+  cd -
+  rm -rf "$rust_analyzer_dir"
 fi
-
 
 # asdfのインストール
 if ! has asdf; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch $asdf_version
   set +ue
+  # shellcheck source=/dev/null
   source ~/.asdf/asdf.sh
   set -ue
   asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
@@ -88,10 +86,10 @@ has ghq || go install github.com/x-motemen/ghq@latest
 # fzfのインストール
 if ! has fzf; then
   fzf_dir="$(mktemp -d)"
-  git clone https://github.com/junegunn/fzf.git $fzf_dir --branch $fzf_version
-  cd $fzf_dir
-  make 
+  git clone https://github.com/junegunn/fzf.git "$fzf_dir" --branch $fzf_version
+  cd "$fzf_dir"
+  make
   cp target/fzf-* "$GOBIN/fzf"
-  cd $SCRIPT_DIR
-  rm -rf $fzf_dir
+  cd -
+  rm -rf "$fzf_dir"
 fi
