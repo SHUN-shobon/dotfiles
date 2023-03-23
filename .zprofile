@@ -38,3 +38,6 @@ path=(
 
 # clangだけ元のものを使用する
 alias clang="/usr/bin/clang"
+
+# Rustの設定
+export RUSTC_WRAPPER="$(which sccache)"
