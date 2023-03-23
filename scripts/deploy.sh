@@ -2,10 +2,7 @@
 
 set -ue
 
-DOTFILE_DIR="$(
-  cd "$(dirname "$0")"/../shared
-  pwd
-)"
+DOTFILE_DIR="${BASH_SOURCE[0]%/*}/../shared"
 cd "$DOTFILE_DIR"
 
 # カレントディレクトリ下の.から始まる.git/下以外のファイルかシンボリックリンクを列挙

@@ -6,7 +6,8 @@ fzf_version="0.30.0"
 
 set -ue
 
-source "$(dirname "${BASH_SOURCE[0]}")/util.sh"
+# shellcheck source=scripts/utils.sh
+source "${BASH_SOURCE[0]%/*}/utils.sh"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -53,7 +54,7 @@ fi
 
 # asdfのインストール
 if ! has asdf; then
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch $asdf_version
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch "$asdf_version"
   set +ue
   # shellcheck source=/dev/null
   source ~/.asdf/asdf.sh
@@ -86,7 +87,7 @@ has ghq || go install github.com/x-motemen/ghq@latest
 # fzfのインストール
 if ! has fzf; then
   fzf_dir="$(mktemp -d)"
-  git clone https://github.com/junegunn/fzf.git "$fzf_dir" --branch $fzf_version
+  git clone https://github.com/junegunn/fzf.git "$fzf_dir" --branch "$fzf_version"
   cd "$fzf_dir"
   make
   cp target/fzf-* "$GOBIN/fzf"
